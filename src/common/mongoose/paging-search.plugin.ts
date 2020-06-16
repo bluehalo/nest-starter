@@ -44,16 +44,16 @@ const pagingQuery = (
 	// const countPromise = runCount ? countQuery.countDocuments().exec() : Promise.resolve(Number.MAX_SAFE_INTEGER);
 	const countPromise = runCount
 		? countQuery
-			.countDocuments()
-			.exec()
-			.catch(err => {
-				// Hit timeout
-				if (err.code === MONGO_TIMEOUT_ERROR_CODE) {
-					return Promise.resolve(Number.MAX_SAFE_INTEGER);
-				} else {
-					return err;
-				}
-			})
+				.countDocuments()
+				.exec()
+				.catch(err => {
+					// Hit timeout
+					if (err.code === MONGO_TIMEOUT_ERROR_CODE) {
+						return Promise.resolve(Number.MAX_SAFE_INTEGER);
+					} else {
+						return err;
+					}
+				})
 		: Promise.resolve(Number.MAX_SAFE_INTEGER);
 
 	const resultsPromise = resultsQuery.exec();

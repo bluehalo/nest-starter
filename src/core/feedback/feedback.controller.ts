@@ -38,8 +38,8 @@ export class FeedbackController {
 	})
 	public async create(
 		@CurrentUser() currentUser: User,
-			@Body() createFeedbackDto: CreateFeedbackDto,
-			@Headers() headers
+		@Body() createFeedbackDto: CreateFeedbackDto,
+		@Headers() headers
 	): Promise<Feedback> {
 		const userAgentObj = UtilService.getUserAgentFromHeader(headers);
 		const feedback = await this.feedbackService.create(createFeedbackDto, userAgentObj);
@@ -68,7 +68,7 @@ export class FeedbackController {
 		description: 'Unauthenticated user attempted to retrieve Feedback.'
 	})
 	public search(
-	@Query() queryParams: Record<string, any>,
+		@Query() queryParams: Record<string, any>,
 		@Body('q') query: any = {},
 		@Body('s') search = null
 	) {

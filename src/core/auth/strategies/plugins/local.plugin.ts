@@ -1,17 +1,20 @@
-import { Strategy } from 'passport-local';
-import { PassportStrategy } from '@nestjs/passport';
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Request } from 'express';
 
-import { AuthService } from '../auth.service';
-import { User } from '../../user/user.schema';
+import { User } from '../../../user/user.schema';
+import { DynamicAuthPlugin } from '../dynamic.strategy';
+import {AuthService} from "../../auth.service";
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
+export class LocalPlugin extends DynamicAuthPlugin {
 	constructor(private readonly authService: AuthService) {
 		super();
 	}
 
-	async validate(username: string, password: string): Promise<User> {
+	async validate(req: Request): Promise<User> {
+		const username = req.body['username'] as string;
+		const password = req.body['password'] as string;
+
 		if ((username?.length ?? 0) === 0) {
 			throw new BadRequestException({
 				type: 'missing-credentials',
@@ -26,6 +29,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 				message: 'Incorrect username or password'
 			});
 		}
+
+		delete user.password;
+		delete user.salt;
 		return user;
 	}
 }

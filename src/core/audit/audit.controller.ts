@@ -1,4 +1,13 @@
-import {Body, Controller, Get, HttpCode, HttpStatus, Post, Query, UseGuards} from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Get,
+	HttpCode,
+	HttpStatus,
+	Post,
+	Query,
+	UseGuards
+} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { AuthenticatedGuard } from '../auth/guards/authenticated.guard';
@@ -24,8 +33,8 @@ export class AuditController {
 	@UseGuards(AuthenticatedGuard, HasAuditorRoleGuard)
 	public search(
 		@Query() queryParams: Record<string, any>,
-			@Body('q') query: any = {},
-			@Body('s') search = null
+		@Body('q') query: any = {},
+		@Body('s') search = null
 	): Promise<any> {
 		return this.auditService.search(queryParams, query, search);
 	}

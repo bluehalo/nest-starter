@@ -2,9 +2,13 @@ export interface Config {
 	port: number;
 
 	auth: {
+		autoCreateAccounts: boolean;
 		strategy: 'local' | 'proxy-pki' | string;
 		sessionSecret: string;
 		sessionCollection: string;
+		sessionCookie: {
+			maxAge: number;
+		};
 		defaultRoles: any;
 	};
 	mode: string;
@@ -23,8 +27,10 @@ export interface Config {
 		path: string;
 	};
 	db: {
-		admin: string | { uri: string; options: any; };
+		admin: string | { uri: string; options: any };
 	};
+
+	coreEmails: Record<string, any>;
 	version: string;
 	contactEmail: string;
 

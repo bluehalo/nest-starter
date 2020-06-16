@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 
 import * as _ from 'lodash';
-import {index, modelOptions, plugin, pre, prop, Severity} from '@typegoose/typegoose';
+import { index, modelOptions, plugin, pre, prop, Severity } from '@typegoose/typegoose';
 import { RefType } from '@typegoose/typegoose/lib/types';
 
 import { PagingSearch, PagingSearchPlugin } from '../../common/mongoose/paging-search.plugin';
@@ -125,45 +125,50 @@ export class User extends PagingSearch {
 	bypassAccessCheck?: boolean;
 
 	@prop({
-		default: 0
+		default: 0,
+		type: Date
 	})
-	messagesAcknowledged?: Date;
+	messagesAcknowledged?: number;
 
 	@prop({
-		default: Date.now
+		default: Date.now,
+		type: Date
 	})
-	alertsViewed?: Date;
+	alertsViewed?: number;
 
 	@prop()
 	resetPasswordToken?: string;
 
 	@prop({
 		get: UtilService.dateParse,
-		set: v => v
+		set: v => v,
+		type: Date
 	})
-	resetPasswordExpires?: Date;
-
-	@prop({
-		default: null,
-		// set:
-		get: UtilService.dateParse,
-		set: v => v
-	})
-	acceptedEua?: Date;
+	resetPasswordExpires?: number;
 
 	@prop({
 		default: null,
 		get: UtilService.dateParse,
-		set: v => v
+		set: v => v,
+		type: Date
 	})
-	lastLogin?: Date;
+	acceptedEua?: number;
 
 	@prop({
 		default: null,
 		get: UtilService.dateParse,
-		set: v => v
+		set: v => v,
+		type: Date
 	})
-	newFeatureDismissed?: Date;
+	lastLogin?: number;
+
+	@prop({
+		default: null,
+		get: UtilService.dateParse,
+		set: v => v,
+		type: Date
+	})
+	newFeatureDismissed?: number;
 
 	@prop()
 	preferences: any;

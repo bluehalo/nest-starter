@@ -19,7 +19,7 @@ export class AuditService {
 		eventAction: string,
 		eventActor: any,
 		eventObject: any,
-		eventMetadata: any
+		eventMetadata: any = null
 	): Promise<Audit> {
 		// Extract additional metadata to audit
 		const userAgentObj = UtilService.getUserAgentFromHeader(eventMetadata);

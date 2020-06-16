@@ -43,8 +43,8 @@ export class UserController {
 	})
 	public async create(
 		@CurrentUser() currentUser: User,
-			@Body() createUserDto: UserDto,
-			@Headers() headers
+		@Body() createUserDto: UserDto,
+		@Headers() headers
 	): Promise<User> {
 		const user = await this.userService.create(createUserDto);
 
@@ -82,9 +82,9 @@ export class UserController {
 	})
 	public async update(
 		@CurrentUser() currentUser: User,
-			@Body() updateDto: UserDto,
-			@Param('userId', LoadUserPipe) user: DocumentType<User>,
-			@Headers() headers
+		@Body() updateDto: UserDto,
+		@Param('userId', LoadUserPipe) user: DocumentType<User>,
+		@Headers() headers
 	): Promise<User> {
 		// A copy of the original user for auditing
 		const originalUser = User.auditCopy(user);
@@ -126,8 +126,8 @@ export class UserController {
 	})
 	public async remove(
 		@CurrentUser() currentUser: User,
-			@Param('id', LoadUserPipe) user: DocumentType<User>,
-			@Headers() headers
+		@Param('id', LoadUserPipe) user: DocumentType<User>,
+		@Headers() headers
 	): Promise<User> {
 		// TODO: implement this, possibly set up with events to allow sites to subscribe to remove events and react.
 		// return resourcesService.deleteResourcesWithOwner(user._id, 'user');
@@ -158,7 +158,7 @@ export class UserController {
 		description: 'Unauthenticated/Unauthorized user attempted to retrieve Users.'
 	})
 	public adminSearch(
-	@Query() queryParams: Record<string, any>,
+		@Query() queryParams: Record<string, any>,
 		@Body('q') query: any = {},
 		@Body('s') search = null
 	) {

@@ -25,7 +25,8 @@ export class ConfigService {
 
 		// Get the current config
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		const environmentConfig = require(path.join(process.cwd(), 'config/env/', process.env.NODE_ENV)) || {};
+		const environmentConfig =
+			require(path.join(process.cwd(), 'config/env/', process.env.NODE_ENV)) || {};
 
 		// Merge config files
 		const config = _.extend(defaultConfig, environmentConfig);
@@ -53,14 +54,21 @@ export class ConfigService {
 		const environmentFiles = glob.sync(`./config/env/${process.env.NODE_ENV}.js`);
 
 		if (!environmentFiles.length) {
-			console.log(chalk.red(`No configuration files found matching environment: "${process.env.NODE_ENV}"`));
+			console.log(
+				chalk.red(`No configuration files found matching environment: "${process.env.NODE_ENV}"`)
+			);
 			// Reset console color
 			console.log(chalk.white(''));
 		}
 	}
 
 	private validateConfiguration(config) {
-		const chalkFn = (config.mode === 'development') ? chalk.green : (config.mode === 'production') ? chalk.blue : chalk.yellow;
+		const chalkFn =
+			config.mode === 'development'
+				? chalk.green
+				: config.mode === 'production'
+				? chalk.blue
+				: chalk.yellow;
 		console.log(chalkFn(`Configuration mode set to ${config.mode}`));
 	}
 

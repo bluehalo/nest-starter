@@ -43,8 +43,8 @@ export class MessagesController {
 	})
 	public async create(
 		@CurrentUser() currentUser: User,
-			@Body() createMessageDto: MessageDto,
-			@Headers() headers
+		@Body() createMessageDto: MessageDto,
+		@Headers() headers
 	): Promise<Message> {
 		const message = await this.messagesService.create(createMessageDto, currentUser);
 
@@ -84,9 +84,9 @@ export class MessagesController {
 	})
 	public async update(
 		@CurrentUser() currentUser: User,
-			@Body() updateMessageDto: MessageDto,
-			@Param('id', LoadMessagePipe) message: DocumentType<Message>,
-			@Headers() headers
+		@Body() updateMessageDto: MessageDto,
+		@Param('id', LoadMessagePipe) message: DocumentType<Message>,
+		@Headers() headers
 	): Promise<Message> {
 		// A copy of the original message for auditing
 		const originalMessage = Message.auditCopy(message);
@@ -117,8 +117,8 @@ export class MessagesController {
 	})
 	public async remove(
 		@CurrentUser() currentUser: User,
-			@Param('id', LoadMessagePipe) message: DocumentType<Message>,
-			@Headers() headers
+		@Param('id', LoadMessagePipe) message: DocumentType<Message>,
+		@Headers() headers
 	): Promise<Message> {
 		await this.auditService.audit(
 			'message deleted',
@@ -143,7 +143,7 @@ export class MessagesController {
 		description: 'Unauthenticated/Unauthorized user attempted to search Messages.'
 	})
 	public search(
-	@Query() queryParams: Record<string, any>,
+		@Query() queryParams: Record<string, any>,
 		@Body('q') query: any = {},
 		@Body('s') search = null
 	) {
@@ -175,8 +175,8 @@ export class MessagesController {
 	})
 	public async dismiss(
 		@CurrentUser() currentUser: User,
-			@Body('messageIds') messageIds: string[],
-			@Headers() headers
+		@Body('messageIds') messageIds: string[],
+		@Headers() headers
 	): Promise<DismissedMessage[]> {
 		const dismissedMessages = await this.messagesService.dismissMessages(messageIds, currentUser);
 

@@ -41,9 +41,20 @@ export class UserService implements TypegooseEntityService<User, UserDto, UserDt
 		return createdUser.save();
 	}
 
-	read(id: string, populate: any[] = []): Promise<DocumentType<User>> {
+	read(id: string): Promise<DocumentType<User>>;
+	read(query: Record<string, any>): Promise<DocumentType<User>>;
+	read(id: string, populate: any[]): Promise<DocumentType<User>>;
+	read(query: Record<string, any>, populate: any[]): Promise<DocumentType<User>>;
+	read(idOrQuery: string | Record<string, any>, populate: any[] = []): Promise<DocumentType<User>> {
+		let query;
+		if (typeof idOrQuery === 'string') {
+			query = { _id: idOrQuery };
+		} else {
+			query = idOrQuery;
+		}
+
 		return this.userModel
-			.findOne({ _id: id }, '-salt -password')
+			.findOne(query, '-salt -password')
 			.populate(populate)
 			.exec();
 	}
@@ -62,6 +73,11 @@ export class UserService implements TypegooseEntityService<User, UserDto, UserDt
 			user.password = dto.password;
 		}
 
+		return user.save();
+	}
+
+	updateLastLogin(user: DocumentType<User>): Promise<DocumentType<User>> {
+		user.lastLogin = Date.now();
 		return user.save();
 	}
 

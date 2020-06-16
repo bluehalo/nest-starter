@@ -1,7 +1,7 @@
-import {modelOptions, plugin, prop, Severity} from '@typegoose/typegoose';
-import {Schema} from 'mongoose';
+import { modelOptions, plugin, prop, Severity } from '@typegoose/typegoose';
+import { Schema } from 'mongoose';
 
-import {PagingSearch, PagingSearchPlugin} from '../../common/mongoose/paging-search.plugin';
+import { PagingSearch, PagingSearchPlugin } from '../../common/mongoose/paging-search.plugin';
 
 @modelOptions({
 	schemaOptions: {

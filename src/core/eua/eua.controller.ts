@@ -42,8 +42,8 @@ export class EuaController {
 	})
 	public async create(
 		@CurrentUser() currentUser: User,
-			@Body() createEuaDto: EuaDto,
-			@Headers() headers
+		@Body() createEuaDto: EuaDto,
+		@Headers() headers
 	): Promise<Eua> {
 		const eua = await this.euaService.create(createEuaDto);
 
@@ -81,9 +81,9 @@ export class EuaController {
 	})
 	public async update(
 		@CurrentUser() currentUser: User,
-			@Body() updateEuaDto: EuaDto,
-			@Param('id', LoadEuaPipe) eua: DocumentType<Eua>,
-			@Headers() headers
+		@Body() updateEuaDto: EuaDto,
+		@Param('id', LoadEuaPipe) eua: DocumentType<Eua>,
+		@Headers() headers
 	): Promise<Eua> {
 		// A copy of the original eua for auditing
 		const originalEua = Eua.auditCopy(eua);
@@ -114,8 +114,8 @@ export class EuaController {
 	})
 	public async remove(
 		@CurrentUser() currentUser: User,
-			@Param('id', LoadEuaPipe) eua: DocumentType<Eua>,
-			@Headers() headers
+		@Param('id', LoadEuaPipe) eua: DocumentType<Eua>,
+		@Headers() headers
 	): Promise<Eua> {
 		await this.auditService.audit(
 			'eua deleted',
@@ -140,7 +140,7 @@ export class EuaController {
 		description: 'Unauthenticated/Unauthorized user attempted to search EUAs.'
 	})
 	public search(
-	@Query() queryParams: Record<string, any>,
+		@Query() queryParams: Record<string, any>,
 		@Body('q') query: any = {},
 		@Body('s') search = null
 	) {
@@ -157,8 +157,8 @@ export class EuaController {
 	})
 	public async publish(
 		@CurrentUser() currentUser: User,
-			@Param('id', LoadEuaPipe) eua: DocumentType<Eua>,
-			@Headers() headers
+		@Param('id', LoadEuaPipe) eua: DocumentType<Eua>,
+		@Headers() headers
 	): Promise<Eua> {
 		await this.auditService.audit(
 			'eua published',
@@ -171,7 +171,7 @@ export class EuaController {
 		return this.euaService.publishEua(eua);
 	}
 
-	@UseGuards(AuthenticatedGuard, HasAdminRoleGuard)
+	@UseGuards(AuthenticatedGuard)
 	@Get('/eua')
 	@ApiCreatedResponse({
 		status: HttpStatus.OK,
